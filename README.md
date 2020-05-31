@@ -1,4 +1,4 @@
-# vuejstuto
+# vuejs_todo_app
 
 ## Project setup
 ```
