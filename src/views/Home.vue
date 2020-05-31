@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <div class="container">
-      <!-- <myHeader /> -->
       <AddTodo @addNewTodo="addTodo" />
       <Todos v-bind:todos="todos" @deleteTodo="deleteTodo" />
     </div>
@@ -9,45 +8,45 @@
 </template>
 
 <script>
-// import myHeader from './components/myHeader';
+import { v4 as uuidv4 } from 'uuid';
+
 import AddTodo from '../components/addTodo';
 import Todos from '../components/todos';
-import axios from 'axios';
 export default {
   name: 'Home',
   components: {
-    // myHeader,
     Todos,
     AddTodo
   },
   data() {
     return {
-      todos: []
+      todos: [
+        {
+          title: 'lorem remaining essentially unchange',
+          completed: false,
+          id: 1
+        },
+        { title: 'remaining lorem unchange', completed: true, id: 2 },
+        {
+          title: 'remazeing essly lorem',
+          completed: false,
+          id: 3
+        }
+      ]
     };
   },
   methods: {
     addTodo(Newtitle) {
-      axios
-        .post('https://jsonplaceholder.typicode.com/todos', {
-          title: Newtitle,
-          completed: false
-        })
-        .then(res => {
-          this.todos.push(res.data);
-        });
+      this.todos.push({
+        id: uuidv4(),
+        title: Newtitle,
+        completed: false
+      });
     },
 
     deleteTodo(id) {
       this.todos = this.todos.filter(todo => todo.id !== id);
     }
-  },
-  created() {
-    axios
-      .get('https://jsonplaceholder.typicode.com/todos?_limit=10')
-      .then(res => {
-        this.todos = res.data;
-      })
-      .catch(err => console.log(err));
   }
 };
 </script>
